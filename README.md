@@ -4,9 +4,7 @@
 Sumativa 2 — Desarrollo de Aplicación Web con JavaScript
 
 Aplicación web para registrar reflexiones astrales diarias, con gestión dinámica del DOM, validaciones avanzadas y estructuras de datos eficientes.
-
-
-- Funcionalidades
+git rebase -i --rootFuncionalidades
 
 Formulario con validaciones avanzadas — nombre (RegExp), fecha (no futura), signo, energía, reflexión (longitud) y estado de ánimo (interactivo)
 Manipulación dinámica del DOM — agregar, renderizar y eliminar entradas sin recargar la página
