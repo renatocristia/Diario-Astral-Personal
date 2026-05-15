@@ -1,10 +1,10 @@
-# Diario-Astral-Personal
-
-🌙 Diario Astral Personal
+ Diario Astral Personal
 Sumativa 2 — Desarrollo de Aplicación Web con JavaScript
 
 Aplicación web para registrar reflexiones astrales diarias, con gestión dinámica del DOM, validaciones avanzadas y estructuras de datos eficientes.
-git rebase -i --rootFuncionalidades
+
+
+ Funcionalidades
 
 Formulario con validaciones avanzadas — nombre (RegExp), fecha (no futura), signo, energía, reflexión (longitud) y estado de ánimo (interactivo)
 Manipulación dinámica del DOM — agregar, renderizar y eliminar entradas sin recargar la página
@@ -15,22 +15,22 @@ Prevención de XSS — uso exclusivo de textContent y createElement; función es
 Diseño responsive — estética pastel con tipografía editorial
 
 
-🛠️ Tecnologías
+ Tecnologías
 
 HTML5 semántico
 CSS3 (Grid, Custom Properties, animaciones)
 JavaScript ES6+ (sin frameworks)
 
 
-📁 Estructura del proyecto
+ Estructura del proyecto
 diario-astral/
 ├── index.html       # App principal (HTML + CSS + JS en un archivo)
 └── README.md        # Documentación
 
-🔐 Seguridad y buenas prácticas
+Seguridad y buenas prácticas:
 PrácticaImplementaciónPrevención XSSescaparHTML() + sanitizarTexto() con createTextNodeSin innerHTML peligrosoTodo el DOM se construye con createElementValidación RegExp/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]{2,50}$/ para nombreValidación semánticaFecha no futura, selects obligatorios, largo de textoDatos tipadosObjetos con estructura fija antes de guardarse
 
-🧩 Funciones reutilizables
+Funciones reutilizables:
 jsescaparHTML(str)        // Escapa caracteres peligrosos → previene XSS
 sanitizarTexto(str)     // Elimina HTML usando createTextNode
 generarId()             // ID único por timestamp + random
@@ -50,7 +50,7 @@ eliminarEntrada(id)     // Filtra el array y actualiza la UI
 guardarEntradas()       // Persiste en localStorage (con try/catch)
 cargarEntradas()        // Recupera desde localStorage
 
-🤖 Uso de IA
+ Uso de IA
 Herramienta utilizada
 Claude (Anthropic) + GitHub Copilot
 
@@ -78,5 +78,5 @@ Activar GitHub Pages desde Settings → Pages → Branch: main
 La app estará disponible en https://usuario.github.io/diario-astral/
 
 
-👥 Integrantes
+Integrantes
 NombreRol[Nombre 1]Desarrollo JS + Validaciones[Nombre 2]UI/UX + README + Informe IA
