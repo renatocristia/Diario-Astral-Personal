@@ -39,6 +39,114 @@
         radial-gradient(ellipse 50% 35% at 90% 100%, rgba(245,200,220,0.4)  0%, transparent 70%);
     }
 
+    /* ===== INTRO SPLASH ===== */
+    #intro {
+      position: fixed; inset: 0; z-index: 999;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: #1A0F2E;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122,79,192,0.5) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(196,82,126,0.35) 0%, transparent 60%);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    #intro.oculto {
+      opacity: 0; pointer-events: none; transform: scale(1.04);
+    }
+
+    /* estrellas de fondo */
+    .estrellas {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .estrella {
+      position: absolute; border-radius: 50%;
+      background: #fff; animation: twinkle var(--d, 3s) ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0; transform: scale(0.8); }
+      50%      { opacity: var(--op, 0.8); transform: scale(1); }
+    }
+
+    /* luna giratoria */
+    .luna-wrap {
+      position: relative; margin-bottom: 2rem;
+      animation: flotar 4s ease-in-out infinite;
+    }
+    @keyframes flotar {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .luna {
+      font-size: 5rem; line-height: 1;
+      filter: drop-shadow(0 0 30px rgba(169,127,219,0.7));
+    }
+    .halo {
+      position: absolute; inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(169,127,219,0.25) 0%, transparent 70%);
+      animation: pulso 3s ease-in-out infinite;
+    }
+    @keyframes pulso {
+      0%,100% { transform: scale(1); opacity: 0.6; }
+      50%      { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* texto intro */
+    .intro-eyebrow {
+      font-family: var(--font-body); font-size: 11px; letter-spacing: 5px;
+      text-transform: uppercase; color: rgba(168,140,176,0.7);
+      margin-bottom: 0.75rem; font-weight: 300;
+    }
+    .intro-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 600; color: #F3EFFE;
+      line-height: 1.05; text-align: center;
+      margin-bottom: 0.4rem;
+    }
+    .intro-titulo em { color: var(--rose-300); font-style: italic; font-weight: 400; }
+    .intro-sub {
+      font-family: var(--font-display); font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(221,208,249,0.65); margin-bottom: 3rem;
+      font-weight: 400; text-align: center;
+      max-width: 360px; line-height: 1.5;
+    }
+
+    /* botón entrar */
+    .btn-entrar {
+      padding: 0.85rem 2.8rem;
+      border: 1.5px solid rgba(169,127,219,0.5);
+      border-radius: 50px;
+      background: rgba(122,79,192,0.18);
+      color: #DDD0F9;
+      font-family: var(--font-body); font-size: 12px;
+      font-weight: 500; letter-spacing: 3px;
+      text-transform: uppercase; cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .btn-entrar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(122,79,192,0.4), rgba(196,82,126,0.3));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .btn-entrar:hover { border-color: var(--lila-300); color: #fff; transform: translateY(-2px); }
+    .btn-entrar:hover::before { opacity: 1; }
+
+    .intro-hint {
+      position: absolute; bottom: 2rem;
+      font-size: 11px; color: rgba(168,140,176,0.4);
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 300;
+      animation: fadeInOut 3s ease-in-out infinite;
+    }
+    @keyframes fadeInOut { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
+
     /* HEADER */
     header { text-align: center; padding: 3rem 1rem 2rem; }
     .eyebrow {
@@ -238,6 +346,20 @@
   </style>
 </head>
 <body>
+
+<!-- INTRO SPLASH -->
+<div id="intro">
+  <div class="estrellas" id="estrellas"></div>
+  <div class="luna-wrap">
+    <div class="halo"></div>
+    <div class="luna">🌙</div>
+  </div>
+  <div class="intro-eyebrow">✦ Bienvenida al cosmos ✦</div>
+  <h1 class="intro-titulo">Diario <em>Astral</em></h1>
+  <p class="intro-sub">Un espacio para registrar tus energías,<br>reflexiones y signos del universo.</p>
+  <button class="btn-entrar" id="btn-entrar">✦ Entrar al diario</button>
+  <span class="intro-hint">Haz clic para continuar</span>
+</div>
 
 <header>
   <div class="eyebrow">✦ Sumativa 2 · JavaScript &amp; DOM ✦</div>
@@ -692,9 +814,37 @@
   });
 
   /* =====================================================
+     INTRO SPLASH
+  ===================================================== */
+  function inicializarIntro() {
+    // Generar estrellas aleatorias
+    const contenedor = document.getElementById('estrellas');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'estrella';
+      const size = Math.random() * 2.5 + 0.5;
+      s.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%; left:${Math.random()*100}%;
+        --d:${(Math.random()*4+2).toFixed(1)}s;
+        --op:${(Math.random()*0.6+0.3).toFixed(2)};
+        animation-delay:${(Math.random()*5).toFixed(1)}s;
+      `;
+      contenedor.appendChild(s);
+    }
+
+    // Cerrar intro al hacer clic en botón o en cualquier parte
+    function cerrarIntro() {
+      document.getElementById('intro').classList.add('oculto');
+    }
+    document.getElementById('btn-entrar').addEventListener('click', cerrarIntro);
+  }
+
+  /* =====================================================
      INICIALIZACIÓN
   ===================================================== */
   async function inicializarApp() {
+    inicializarIntro();
     document.getElementById('campo-fecha')
       .setAttribute('max', new Date().toISOString().split('T')[0]);
 
@@ -711,3 +861,4 @@
 </script>
 </body>
 </html>
+
