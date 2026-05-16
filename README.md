@@ -79,4 +79,6 @@ La app estará disponible en https://usuario.github.io/diario-astral/
 
 
 Integrantes
-NombreRol[Nombre 1]Desarrollo JS + Validaciones[Nombre 2]UI/UX + README + Informe IA
+RENATO CRISTIA
+
+Desarrollo JS + Validaciones[Nombre 2]UI/UX + README + Informe IA
